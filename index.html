@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Muti!</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #2b1055, #7597de, #b83280, #f67280);
+      --card-bg: rgba(255, 255, 255, 0.15);
+      --card-border: rgba(255, 255, 255, 0.3);
+      --text-color: #ffffff;
+      --btn-bg: linear-gradient(45deg, #ff416c, #ff4b2b);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', cursive, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg-gradient);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      width: 90%;
+      max-width: 450px;
+      min-height: 580px;
+      background: var(--card-bg);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border: 1px solid var(--card-border);
+      border-radius: 25px;
+      padding: 25px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    .step {
+      display: none;
+      width: 100%;
+      animation: fadeIn 0.8s ease-in-out forwards;
+    }
+
+    .step.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Style Tombol */
+    .btn {
+      margin-top: 20px;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 50px;
+      background: var(--btn-bg);
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(255, 75, 43, 0.6);
+    }
+
+    /* Music Player Widget di Pojok */
+    .music-widget {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      backdrop-filter: blur(5px);
+      z-index: 10;
+    }
+
+    /* Step 1: Balon Udara & Roket */
+    .adventure-icon-container {
+      font-size: 70px;
+      margin: 30px 0 10px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      animation: floatAdventure 3s ease-in-out infinite;
+    }
+
+    @keyframes floatAdventure {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* Step 3: Balon Terbang Interaktif & Kata-Kata Pujian */
+    .balloon-area {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      margin: 15px 0;
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+    }
+
+    .balloon-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      animation: floatBalloon 3s ease-in-out infinite;
+    }
+
+    .balloon-wrapper:nth-child(2) { animation-delay: 0.7s; }
+    .balloon-wrapper:nth-child(3) { animation-delay: 1.4s; }
+    .balloon-wrapper:nth-child(4) { animation-delay: 2.1s; }
+
+    .balloon-wrapper:hover {
+      transform: scale(1.15) !important;
+    }
+
+    @keyframes floatBalloon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .balloon-svg {
+      width: 65px;
+      height: 80px;
+      filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+    }
+
+    .balloon-label {
+      margin-top: 5px;
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.25);
+      padding: 3px 8px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+    }
+
+    /* Pop-up Pesan Pujian Balon */
+    .praise-card {
+      background: rgba(255, 255, 255, 0.95);
+      color: #333;
+      padding: 16px 20px;
+      border-radius: 18px;
+      min-height: 85px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      width: 100%;
+      margin-top: 10px;
+      transition: all 0.4s ease;
+      animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .praise-text {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #333;
+      line-height: 1.4;
+    }
+
+    /* Step 4: Surat Pesan */
+    .letter-card {
+      background: rgba(255, 255, 255, 0.95);
+      color: #333;
+      padding: 20px;
+      border-radius: 20px;
+      text-align: left;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+      max-height: 350px;
+      overflow-y: auto;
+      width: 100%;
+    }
+    .letter-card p { font-size: 0.9rem; line-height: 1.5; margin-bottom: 8px; }
+
+    /* Kalender Oktober Style */
+    .calendar-card {
+      background: rgba(255, 255, 255, 0.95);
+      color: #333;
+      padding: 15px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 300px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    }
+    .calendar-header {
+      font-weight: bold;
+      color: #ff4757;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      font-size: 0.85rem;
+    }
+    .day-name {
+      font-weight: bold;
+      color: #777;
+    }
+    .day {
+      padding: 6px 0;
+      border-radius: 5px;
+    }
+    .day.birthday {
+      background: #ff4757;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(255, 71, 87, 0.5);
+    }
+
+    /* Step 6: Make a Wish */
+    .cake {
+      font-size: 80px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .cake:hover { transform: scale(1.1); }
+
+    /* Step 7 & 8: Hadiah */
+    .gift-box {
+      font-size: 70px;
+      cursor: pointer;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .gift-reveal {
+      display: none;
+      margin-top: 15px;
+      background: rgba(255,255,255,0.2);
+      padding: 15px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Audio Monokrom Tulus -->
+  <audio id="bg-music" loop preload="auto">
+    <source src="monokrom.mp3" type="audio/mp3">
+  </audio>
+
+  <div class="container">
+    
+    <!-- Tombol Musik di Pojok -->
+    <div class="music-widget" onclick="toggleMusic()">
+      🎵 <span id="music-status">Play Musik</span>
+    </div>
+
+    <!-- STEP 1: Balon Udara & Roket -->
+    <div class="step active" id="step1">
+      <p style="font-size: 0.9rem; opacity: 0.9;">A new adventure is ready to begin...</p>
+      <div class="adventure-icon-container">
+        <span>🎈</span>
+        <span>🚀</span>
+      </div>
+      <h2 style="margin-top: 10px;">It's Time!</h2>
+      <p style="font-size: 0.85rem; opacity: 0.8; margin-top: 5px;">Someone has been waiting for this moment...</p>
+      <button class="btn" onclick="startSurprise()">Tap to Begin Your Surprise</button>
+    </div>
+
+    <!-- STEP 2: Ucapan Utama -->
+    <div class="step" id="step2">
+      <p style="font-style: italic;">To Someone Extraordinary...</p>
+      <h1 style="font-size: 2.2rem; margin: 15px 0; color: #ff78ae;">Happy Birthday,<br>Muti <div>🎂</div></h1>
+      <button class="btn" onclick="nextStep(3)">Continue ➔</button>
+    </div>
+
+    <!-- STEP 3: PERBARUAN - Balon Terbang Ucapan Interaktif -->
+    <div class="step" id="step3">
+      <h3>🎈 Tap The Balloons! 🎈</h3>
+      <p style="font-size: 0.85rem; opacity: 0.9; margin-top: 4px;">Klik balon di bawah untuk menerbangkan pesan spesial!</p>
+
+      <div class="balloon-area">
+        <!-- Balon 1 -->
+        <div class="balloon-wrapper" onclick="popBalloon(0)">
+          <svg class="balloon-svg" viewBox="0 0 100 120">
+            <path d="M50 0 C20 0 0 25 0 55 C0 85 40 100 50 105 C60 100 100 85 100 55 C100 25 80 0 50 0 Z" fill="#ff4b2b" />
+            <polygon points="45,103 55,103 50,110" fill="#d03010" />
+            <path d="M50 110 Q45 115 50 120" stroke="white" stroke-width="2" fill="none" />
+            <ellipse cx="30" cy="30" rx="8" ry="15" fill="rgba(255,255,255,0.3)" transform="rotate(-30 30 30)" />
+          </svg>
+          <span class="balloon-label">Balon 1</span>
+        </div>
+
+        <!-- Balon 2 -->
+        <div class="balloon-wrapper" onclick="popBalloon(1)">
+          <svg class="balloon-svg" viewBox="0 0 100 120">
+            <path d="M50 0 C20 0 0 25 0 55 C0 85 40 100 50 105 C60 100 100 85 100 55 C100 25 80 0 50 0 Z" fill="#ff78ae" />
+            <polygon points="45,103 55,103 50,110" fill="#d85085" />
+            <path d="M50 110 Q55 115 50 120" stroke="white" stroke-width="2" fill="none" />
+            <ellipse cx="30" cy="30" rx="8" ry="15" fill="rgba(255,255,255,0.3)" transform="rotate(-30 30 30)" />
+          </svg>
+          <span class="balloon-label">Balon 2</span>
+        </div>
+
+        <!-- Balon 3 -->
+        <div class="balloon-wrapper" onclick="popBalloon(2)">
+          <svg class="balloon-svg" viewBox="0 0 100 120">
+            <path d="M50 0 C20 0 0 25 0 55 C0 85 40 100 50 105 C60 100 100 85 100 55 C100 25 80 0 50 0 Z" fill="#00c6ff" />
+            <polygon points="45,103 55,103 50,110" fill="#008cb3" />
+            <path d="M50 110 Q45 115 50 120" stroke="white" stroke-width="2" fill="none" />
+            <ellipse cx="30" cy="30" rx="8" ry="15" fill="rgba(255,255,255,0.3)" transform="rotate(-30 30 30)" />
+          </svg>
+          <span class="balloon-label">Balon 3</span>
+        </div>
+
+        <!-- Balon 4 -->
+        <div class="balloon-wrapper" onclick="popBalloon(3)">
+          <svg class="balloon-svg" viewBox="0 0 100 120">
+            <path d="M50 0 C20 0 0 25 0 55 C0 85 40 100 50 105 C60 100 100 85 100 55 C100 25 80 0 50 0 Z" fill="#f8b500" />
+            <polygon points="45,103 55,103 50,110" fill="#c48f00" />
+            <path d="M50 110 Q55 115 50 120" stroke="white" stroke-width="2" fill="none" />
+            <ellipse cx="30" cy="30" rx="8" ry="15" fill="rgba(255,255,255,0.3)" transform="rotate(-30 30 30)" />
+          </svg>
+          <span class="balloon-label">Balon 4</span>
+        </div>
+      </div>
+
+      <!-- Wadah Pesan Pujian yang Muncul saat Diklik -->
+      <div class="praise-card" id="praise-card">
+        <p class="praise-text" id="praise-text">✨ Sentuh salah satu balon di atas untuk membaca pesan penyemangat! ✨</p>
+      </div>
+
+      <button class="btn" onclick="nextStep(4)">Continue ➔</button>
+    </div>
+
+    <!-- STEP 4: Surat Pesan -->
+    <div class="step" id="step4">
+      <div class="letter-card">
+        <p><strong>Selamat Ulang Tahun, Kak Muti! ✨</strong></p>
+        <p style="margin-top: 6px;">Terima kasih sudah tumbuh menjadi pribadi yang senantiasa memancarkan kebaikan dan kehangatan bagi orang-orang di sekitarmu.</p>
+        <p style="margin-top: 6px;">Di usiamu yang baru ini, semoga setiap langkah kuliah dan perjuanganmu dibukakan jalan yang lapang, dimudahkan segalanya, serta dikelilingi oleh hal-hal indah yang membuat senyummu tak pernah pudar.</p>
+        <p style="margin-top: 6px;">Tetaplah bersinar dengan caramu sendiri, Kak. Percayalah, prosesmu hari ini sedang merajut masa depan yang sangat indah.</p>
+        <p style="margin-top: 10px; font-style: italic; color: #666; font-size: 0.85rem;">"May your new chapter be filled with endless joy, gentle blessings, and dreams coming true."</p>
+      </div>
+      <button class="btn" onclick="nextStep(5)">Continue ➔</button>
+    </div>
+
+    <!-- STEP 5: Kalender Spesial Oktober -->
+    <div class="step" id="step5">
+      <div class="calendar-card">
+        <div class="calendar-header">📅 Oktober - Hari Spesialmu</div>
+        <div class="calendar-grid">
+          <div class="day-name">Min</div>
+          <div class="day-name">Sen</div>
+          <div class="day-name">Sel</div>
+          <div class="day-name">Rab</div>
+          <div class="day-name">Kam</div>
+          <div class="day-name">Jum</div>
+          <div class="day-name">Sab</div>
+          
+          <div class="day"></div><div class="day"></div><div class="day"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div>
+          <div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div>
+          <div class="day">12</div><div class="day">13</div><div class="day birthday" title="Ulang Tahun Muti!">14 🎂</div><div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div>
+          <div class="day">19</div><div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div>
+          <div class="day">26</div><div class="day">27</div><div class="day">28</div><div class="day">29</div><div class="day">30</div><div class="day">31</div><div class="day"></div>
+        </div>
+      </div>
+      <p style="margin-top: 15px; font-size: 0.9rem;">Hari paling spesial di bulan ini ✨</p>
+      <button class="btn" onclick="nextStep(6)">Continue ➔</button>
+    </div>
+
+    <!-- STEP 6: Make a Wish -->
+    <div class="step" id="step6">
+      <h2>🎂 Make a Wish!</h2>
+      <p style="margin: 10px 0; font-size: 0.9rem;" id="wish-status">Klik kue di bawah untuk tiup lilin!</p>
+      <div class="cake" onclick="blowCandle()">🎂</div>
+      <button class="btn" id="btn-step6" style="display:none;" onclick="nextStep(7)">Continue ➔</button>
+    </div>
+
+    <!-- STEP 7: Hadiah 1 - Chocolate -->
+    <div class="step" id="step7">
+      <h2>🎁 Your Gift (1 of 2)</h2>
+      <p style="font-size: 0.85rem;">A little gift for your special day...</p>
+      <div class="gift-box" id="gift1-box" onclick="openGift(1)">🎁</div>
+      <div class="gift-reveal" id="gift1-content">
+        <h3>🍫 Chocolate</h3>
+        <p>A little gift for your special day. Hope this brings a smile to your day! 🎂</p>
+        <button class="btn" onclick="nextStep(8)">Next Gift ➔</button>
+      </div>
+    </div>
+
+    <!-- STEP 8: Hadiah 2 - Buku -->
+    <div class="step" id="step8">
+      <h2>🎁 Your Gift (2 of 2)</h2>
+      <p style="font-size: 0.85rem;">A little gift for your special day...</p>
+      <div class="gift-box" id="gift2-box" onclick="openGift(2)">🎁</div>
+      <div class="gift-reveal" id="gift2-content">
+        <h3>📖 Book</h3>
+        <p>A little something to inspire your next chapter</p>
+        <button class="btn" onclick="nextStep(9)">Continue ➔</button>
+      </div>
+    </div>
+
+    <!-- STEP 9: Halaman Penutup (Keepsake) -->
+    <div class="step" id="step9">
+      <h2>Happy Birthday, Kak Muti!</h2>
+      <div style="margin: 20px 0;">
+        <button class="btn" onclick="restartSurprise()">Replay Surprise 🔄</button>
+      </div>
+      <p style="font-size: 0.8rem; opacity: 0.7;">wishing you more beautiful days ahead🤍</p>
+    </div>
+
+  </div>
+
+  <script>
+    // Pesan-pesan penyemangat dan pujian untuk Muti
+    const praiseMessages = [
+      "✨ Kak Muti itu sosok yang luar biasa hebat! Kamu sudah melangkah sejauh ini dengan sangat tangguh. Proud of you! ❤️",
+      "🌸 Tetap jadi dirimu yang hangat dan baik hati ya. Senyum dan kebaikanmu selalu membawa energi positif! 🌟",
+      "🚀 Apapun mimpi dan cita-citamu, percaya deh Kak Muti pasti bisa meraihnya. Tetap semangat terus ya! 💪",
+      "💖 Ingat untuk selalu bangga pada dirimu sendiri. Semoga tahun ini membawa jutaan kebahagiaan baru! ✨"
+    ];
+
+    function popBalloon(index) {
+      const praiseCard = document.getElementById('praise-card');
+      const praiseText = document.getElementById('praise-text');
+      
+      // Animasi pergantian teks
+      praiseCard.style.animation = 'none';
+      praiseCard.offsetHeight; // trigger reflow
+      praiseCard.style.animation = 'popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+      
+      praiseText.innerHTML = praiseMessages[index];
+    }
+
+    function nextStep(stepNumber) {
+      document.querySelectorAll('.step').forEach(step => {
+        step.classList.remove('active');
+      });
+      document.getElementById('step' + stepNumber).classList.add('active');
+    }
+
+    function startSurprise() {
+      const music = document.getElementById('bg-music');
+      const status = document.getElementById('music-status');
+      music.play().then(() => {
+        status.innerText = "Pause Musik";
+      }).catch(err => {
+        console.log("Autoplay ditahan browser");
+      });
+      nextStep(2);
+    }
+
+    function toggleMusic() {
+      const music = document.getElementById('bg-music');
+      const status = document.getElementById('music-status');
+      if (music.paused) {
+        music.play();
+        status.innerText = "Pause Musik";
+      } else {
+        music.pause();
+        status.innerText = "Play Musik";
+      }
+    }
+
+    function blowCandle() {
+      document.getElementById('wish-status').innerText = "Yayyy! Your wish is on its way ✨";
+      document.getElementById('btn-step6').style.display = "inline-block";
+    }
+
+    function openGift(num) {
+      document.getElementById('gift' + num + '-box').style.display = 'none';
+      document.getElementById('gift' + num + '-content').style.display = 'block';
+    }
+
+    function restartSurprise() {
+      document.getElementById('gift1-box').style.display = 'block';
+      document.getElementById('gift1-content').style.display = 'none';
+      document.getElementById('gift2-box').style.display = 'block';
+      document.getElementById('gift2-content').style.display = 'none';
+      document.getElementById('btn-step6').style.display = 'none';
+      document.getElementById('wish-status').innerText = "Klik kue di bawah untuk tiup lilin!";
+      document.getElementById('praise-text').innerText = "✨ Sentuh salah satu balon di atas untuk membaca pesan penyemangat! ✨";
+      
+      nextStep(1);
+    }
+  </script>
+</body>
+</html>
